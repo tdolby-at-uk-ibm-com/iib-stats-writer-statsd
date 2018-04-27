@@ -4,12 +4,7 @@ project (iib-stats-writer-statsd CXX)
 include(conanbuildinfo.cmake)
 conan_basic_setup()
 
-set (Boost_USE_STATIC_LIBS ON)
-find_package (Boost COMPONENTS system)
-if (NOT Boost_FOUND)
-  message (FATAL_ERROR "Could not find Boost!")
-endif ()
-include_directories (${Boost_INCLUDE_DIRS})
+include_directories (${CONAN_INCLUDE_DIRS_BOOST})
 
 if (NOT IS_DIRECTORY ${IIB_INSTALL_DIR})
   message (FATAL_ERROR "You must set the IIB_INSTALL_DIR variable!")
@@ -28,7 +23,7 @@ include_directories (${IIB_INCLUDES_DIR})
 find_library (IMBDFPLG NAMES imbdfplg PATHS ${IIB_LIBRARIES_DIR})
 
 add_library (statsdsw SHARED StatsdStatsWriter.cpp StatsdStatsWriter.hpp UdpSocket.cpp UdpSocket.hpp)
-target_link_libraries (statsdsw ${IMBDFPLG} ${Boost_LIBRARIES})
+target_link_libraries (statsdsw ${IMBDFPLG} ${CONAN_LIBS_BOOST})
 set_target_properties (statsdsw PROPERTIES PREFIX "" SUFFIX ".lil" CXX_STANDARD 11)
 
 if (WIN32)

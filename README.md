@@ -30,13 +30,18 @@ See [README-AIX.md](README-AIX.md) for more information on building and installi
 You need a recent C++ compiler that supports C++11. For example, GNU GCC 4.8+ (Linux),
 Microsoft Visual Studio 2015 (Windows), or Xcode 7.3 (Mac OS X). Any other compiler
 that supports C++11 should be sufficient, but no other compilers have been tested.
+If multiple compilers are present on Linux, the correct can be specified by setting the
+CC and CXX environment variables before running any commands.
+For example, `export CC=/usr/bin/gcc-4.8 CXX=/usr/bin/g++-4.8` would specify GNU GCC 4.8
 
 #### Conan
 This sample uses the Conan C/C++ package manager. Conan manages the projects dependencies on libraries such as Boost. Conan can be downloaded from: https://www.conan.io
 
 #### CMake
 This sample uses the excellent CMake build system. CMake can generate a variety of
-project files for use with your favourite IDE or make system.
+project files for use with your favourite IDE or make system; note that the default
+CMake package on some Linux distributions may not be recent enough, and version 3.5
+later is needed for this sample.
 CMake can be downloaded from: https://cmake.org
 
 #### IBM Integration Bus
@@ -55,7 +60,7 @@ open beta build can be downloaded from: https://ibm.biz/iibopenbeta
 
 3. Run Conan to download the project dependencies:
 
-  `conan install`
+  `conan install . --build missing`
 
 4. Run CMake to generate project files or makefiles:
 

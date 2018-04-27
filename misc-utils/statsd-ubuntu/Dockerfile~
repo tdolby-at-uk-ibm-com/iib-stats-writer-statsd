@@ -1,0 +1,24 @@
+FROM ubuntu
+
+RUN apt-get update && apt-get -y install curl gcc-4.8 g++-4.8 cmake python3
+
+RUN apt-get -y install python3-pip git
+
+RUN pip3 install conan
+
+RUN mkdir /opt/iib-appdev && cd /opt/iib-appdev \
+   curl http://kenya.hursley.ibm.com:52367/libs-and-includes-S1000-L180417.10721_P.tar.bz2 | tar -xjf -
+
+RUN cd /root && git clone https://github.com/ot4i/iib-stats-writer-statsd
+CMD [ "/bin/bash" ]
+
+#cd iib-stats-writer-statsd
+#conan install
+#conan install . --build gtest --build bzip2 -o 'boost*:shared=True' -o 'gtest*:shared=True'
+#conan install . --build zlib --build gtest --build bzip2 --build boost -o 'boost*:shared=False' -o 'gtest*:shared=True'
+#cmake -DIIB_INSTALL_DIR=/opt/iib-appdev
+#cmake --build .
+#ctest -V
+
+#export CC=/usr/bin/gcc-4.8
+#export CXX=/usr/bin/g++-4.8
